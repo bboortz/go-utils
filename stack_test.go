@@ -9,8 +9,8 @@ import (
 func TestStack(t *testing.T) {
 	assert := assert.New(t)
 
-	var stack []byte = Stack()
-	assert.NotNil(stack)
+	var result []byte = Stack()
+	assert.NotNil(result)
 }
 
 func TestPrintStack(t *testing.T) {
