@@ -22,7 +22,7 @@ func TestGenSeed(t *testing.T) {
 func TestRandomString(t *testing.T) {
 	assert := assert.New(t)
 
-	var result string = randomString(10)
+	var result string = RandomString(10)
 	assert.NotNil(result)
 	assert.Equal(10, len(result))
 }
@@ -30,7 +30,7 @@ func TestRandomString(t *testing.T) {
 func TestRandomInt(t *testing.T) {
 	assert := assert.New(t)
 
-	var result int = randomInt(10, 100)
+	var result int = RandomInt(10, 100)
 	assert.NotNil(result)
 	assert.Equal(true, result >= 10)
 	assert.Equal(true, result <= 100)
@@ -40,7 +40,7 @@ func TestRandomIntWithSeed1(t *testing.T) {
 	assert := assert.New(t)
 	rand.Seed(int64(1))
 
-	var result int = randomInt(10, 100)
+	var result int = RandomInt(10, 100)
 	assert.NotNil(result)
 	assert.Equal(true, result >= 10)
 	assert.Equal(true, result <= 100)
