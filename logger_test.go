@@ -9,6 +9,14 @@ import (
 func init() {
 }
 
+func logIndirect2(args ...interface{}) {
+	log := NewLogger().Build()
+	log.Debug(args...)
+}
+func logIndirect(args ...interface{}) {
+	logIndirect2(args...)
+}
+
 func TestDebug(t *testing.T) {
 	// assert := assert.New(t)
 
@@ -17,4 +25,9 @@ func TestDebug(t *testing.T) {
 	log.Debug("test info", "1")
 	log.Debug("test info", "1", 2)
 	log.Debug("test info"+" foobar", "1", 2)
+}
+
+func TestLogIndirect(t *testing.T) {
+	// assert := assert.New(t)
+	logIndirect("test indirect")
 }
