@@ -14,4 +14,7 @@ func TestDebug(t *testing.T) {
 
 	log := NewLogger().Build()
 	log.Debug("test info")
+	log.Debug("test info", "1")
+	log.Debug("test info", "1", 2)
+	log.Debug("test info"+" foobar", "1", 2)
 }

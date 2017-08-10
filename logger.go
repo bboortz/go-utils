@@ -109,9 +109,9 @@ type logger struct {
 }
 
 func (l *logger) Fatal(args ...interface{}) {
-	l.log.Fatal(args)
+	l.log.Fatal(args...)
 }
 
 func (l *logger) Debug(args ...interface{}) {
-	l.log.Debug(args)
+	l.log.Debug(args...)
 }
