@@ -1,9 +1,11 @@
-package utils
+package logger
 
 import (
 	"fmt"
-	gologging "github.com/op/go-logging"
+	"github.com/bboortz/go-utils"
+	"log"
 	"os"
+	"time"
 )
 
 /*
@@ -48,6 +50,7 @@ type Logger interface {
 		Notice(args ...interface{})
 		Info(args ...interface{})
 	*/
+	Log(level Level, args ...interface{})
 	Fatal(args ...interface{})
 	Debug(args ...interface{})
 }
@@ -81,21 +84,10 @@ func (b *loggerBuilder) SetFormat(format Format) LoggerBuilder {
 }
 
 func (b *loggerBuilder) Build() Logger {
-	// setup logging backend
-	logFormat := gologging.MustStringFormatter(string(b.format))
-	var logBackend = gologging.NewLogBackend(os.Stdout, "", 0)
-	var logBackendFormatter = gologging.NewBackendFormatter(logBackend, logFormat)
-	var logBackendLeveled = gologging.AddModuleLevel(logBackend)
-	logBackendLeveled.SetLevel(gologging.ERROR, "")
-
-	// Set the backends to be used.
-	gologging.SetBackend(logBackendLeveled, logBackendFormatter)
-
-	log := gologging.MustGetLogger("go-utils-logger")
 	return &logger{
-		log:    log,
-		level:  b.level,
-		format: b.format,
+		logStream: log.New(os.Stdout, "", 0),
+		level:     b.level,
+		format:    b.format,
 	}
 }
 
@@ -104,17 +96,26 @@ func (b *loggerBuilder) Build() Logger {
  */
 
 type logger struct {
-	log    *gologging.Logger
-	level  Level
-	format Format
+	logStream *log.Logger
+	level     Level
+	format    Format
+}
+
+func (l *logger) Log(level Level, args ...interface{}) {
+	currentStr := time.Now().Format(time.RFC3339)
+	callerStr := utils.GetCallingMethodName()
+	levelStr := levelNames[l.level]
+	msg := fmt.Sprintln(args...)
+	logLine := fmt.Sprintf("%s %s > %-4s %s", currentStr, callerStr, levelStr, msg)
+	fmt.Print(logLine)
 }
 
 func (l *logger) Fatal(args ...interface{}) {
-	l.log.Fatal(args...)
+	l.Log(CRITICAL, args)
 }
 
 func (l *logger) Debug(args ...interface{}) {
+	l.Log(DEBUG, args)
 	//newArgs := fmt.Sprintf("%s%s%s", args...)
 	//l.log.Debug(newArgs)
-	fmt.Println(args...)
 }

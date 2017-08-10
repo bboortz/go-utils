@@ -1,5 +1,7 @@
 package utils
 
-import ()
+import (
+	"./logger"
+)
 
-var log = NewLogger().Build()
+var log = logger.NewLogger().Build()

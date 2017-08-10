@@ -1,4 +1,4 @@
-package utils
+package logger
 
 import (
 	//	"github.com/davecgh/go-spew/spew"

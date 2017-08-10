@@ -13,9 +13,9 @@ WORKDIR /app
 
 ENV PROGRAM go-utils
 
-RUN go get "github.com/op/go-logging"
 RUN go get "github.com/davecgh/go-spew/spew"
 RUN go get "github.com/stretchr/testify/assert"
+RUN go get "github.com/bboortz/go-utils"
 
 RUN go fmt .
 RUN go test -v 
