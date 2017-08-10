@@ -84,44 +84,65 @@ type logger struct {
 
 func (l *logger) Log(level Level, caller string, args ...interface{}) {
 	currentStr := time.Now().Format(time.RFC3339)
-	levelStr := levelNames[l.level]
+	levelStr := levelNames[level]
 	msg := fmt.Sprintln(args...)
 	logLine := fmt.Sprintf("%s %s > %-4s %s", currentStr, caller, levelStr, msg)
 	l.logStream.Printf(logLine)
 }
 
 func (l *logger) Fatal(args ...interface{}) {
+	if l.level < CRITICAL {
+		return
+	}
 	callerStr := stack.GetCallingMethodName()
 	l.Log(CRITICAL, callerStr, args)
 	os.Exit(1)
 }
 
 func (l *logger) Critical(args ...interface{}) {
+	if l.level < CRITICAL {
+		return
+	}
 	callerStr := stack.GetCallingMethodName()
 	l.Log(CRITICAL, callerStr, args)
 }
 
 func (l *logger) Error(args ...interface{}) {
+	if l.level < ERROR {
+		return
+	}
 	callerStr := stack.GetCallingMethodName()
 	l.Log(ERROR, callerStr, args)
 }
 
 func (l *logger) Warning(args ...interface{}) {
+	if l.level < WARNING {
+		return
+	}
 	callerStr := stack.GetCallingMethodName()
 	l.Log(WARNING, callerStr, args)
 }
 
 func (l *logger) Notice(args ...interface{}) {
+	if l.level < NOTICE {
+		return
+	}
 	callerStr := stack.GetCallingMethodName()
 	l.Log(NOTICE, callerStr, args)
 }
 
 func (l *logger) Info(args ...interface{}) {
+	if l.level < INFO {
+		return
+	}
 	callerStr := stack.GetCallingMethodName()
 	l.Log(INFO, callerStr, args)
 }
 
 func (l *logger) Debug(args ...interface{}) {
+	if l.level < DEBUG {
+		return
+	}
 	callerStr := stack.GetCallingMethodName()
 	l.Log(DEBUG, callerStr, args)
 }
