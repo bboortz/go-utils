@@ -51,15 +51,14 @@ type LoggerBuilder interface {
 }
 
 type loggerBuilder struct {
-	level  Level
-	format Format
+	level Level
 }
 
 /*
  * Builder Methods
  */
 func NewLogger() LoggerBuilder {
-	return &loggerBuilder{format: defaultFormat}
+	return &loggerBuilder{level: INFO}
 }
 
 func (b *loggerBuilder) SetLevel(level Level) LoggerBuilder {
@@ -71,7 +70,6 @@ func (b *loggerBuilder) Build() Logger {
 	return &logger{
 		logStream: log.New(os.Stdout, "", 0),
 		level:     b.level,
-		format:    b.format,
 	}
 }
 
@@ -82,7 +80,6 @@ func (b *loggerBuilder) Build() Logger {
 type logger struct {
 	logStream *log.Logger
 	level     Level
-	format    Format
 }
 
 func (l *logger) Log(level Level, caller string, args ...interface{}) {
