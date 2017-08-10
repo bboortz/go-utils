@@ -48,7 +48,7 @@ type Logger interface {
 		Info(args ...interface{})
 	*/
 	Fatal(args ...interface{})
-	Debug(args ...interface{})
+	Debug(args string)
 }
 
 type LoggerBuilder interface {
@@ -112,6 +112,6 @@ func (l *logger) Fatal(args ...interface{}) {
 	l.log.Fatal(args)
 }
 
-func (l *logger) Debug(args ...interface{}) {
+func (l *logger) Debug(args string) {
 	l.log.Debug(args)
 }
