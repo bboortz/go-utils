@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	gologging "github.com/op/go-logging"
 	"os"
 )
@@ -113,5 +114,7 @@ func (l *logger) Fatal(args ...interface{}) {
 }
 
 func (l *logger) Debug(args ...interface{}) {
-	l.log.Debug(args...)
+	//newArgs := fmt.Sprintf("%s%s%s", args...)
+	//l.log.Debug(newArgs)
+	fmt.Println(args...)
 }

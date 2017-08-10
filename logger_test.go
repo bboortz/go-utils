@@ -24,6 +24,8 @@ func TestDebug(t *testing.T) {
 	log.Debug("test info")
 	log.Debug("test info", "1")
 	log.Debug("test info", "1", 2)
+	log.Debug("test info", "1", 2, 3)
+	log.Debug("test info", "1", 2, 3, 4)
 	log.Debug("test info"+" foobar", "1", 2)
 }
 
