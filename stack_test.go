@@ -26,7 +26,7 @@ func TestGetCurrentMethodName(t *testing.T) {
 
 	var result string = GetCurrentMethodName()
 	assert.NotNil(result)
-	assert.Equal("github.com/bboortz/go-utils.TestGetCurrentMethodName", result)
+	assert.Equal("_/app.TestGetCurrentMethodName", result)
 }
 
 func TestGetCallingMethodName(t *testing.T) {

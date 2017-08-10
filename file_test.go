@@ -3,14 +3,14 @@ package utils
 import (
 	//	"github.com/davecgh/go-spew/spew"
 	"github.com/stretchr/testify/assert"
-	"os"
 	"testing"
 )
 
 func init() {
 }
 
-var testdir string = os.Getenv("GOPATH") + "/src/github.com/bboortz/go-utils/testdata"
+// var testdir string = os.Getenv("GOPATH") + "/src/github.com/bboortz/go-utils/testdata"
+var testdir string = "/app/testdata"
 var emptyFile string = testdir + "/empty.txt"
 var oneLineFile string = testdir + "/oneline.txt"
 var threeLineFile string = testdir + "/threelines.txt"
