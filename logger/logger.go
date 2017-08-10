@@ -32,14 +32,6 @@ var levelNames = []string{
 }
 
 /*
- * Format
- */
-type Format string
-
-//var defaultFormat Format = `%{color}%{time:15:04:05.000} %{id:03x} %{module:15s} %{shortfunc:20s} ▶ %{level:.4s} %{color:reset} %{message}`
-var defaultFormat Format = `%{color}%{time:15:04:05.000} %{id:03x} ▶ %{level:.4s} %{color:reset} %{message}`
-
-/*
  * Interface Definition
  */
 type Logger interface {
@@ -55,7 +47,6 @@ type Logger interface {
 
 type LoggerBuilder interface {
 	SetLevel(Level) LoggerBuilder
-	SetFormat(Format) LoggerBuilder
 	Build() Logger
 }
 
@@ -73,11 +64,6 @@ func NewLogger() LoggerBuilder {
 
 func (b *loggerBuilder) SetLevel(level Level) LoggerBuilder {
 	b.level = level
-	return b
-}
-
-func (b *loggerBuilder) SetFormat(format Format) LoggerBuilder {
-	b.format = format
 	return b
 }
 
