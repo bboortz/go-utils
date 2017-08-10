@@ -6,10 +6,10 @@ import (
 	"testing"
 )
 
-func TestStack(t *testing.T) {
+func TestGetStack(t *testing.T) {
 	assert := assert.New(t)
 
-	var result []byte = Stack()
+	var result []byte = GetStack()
 	assert.NotNil(result)
 }
 
@@ -26,7 +26,7 @@ func TestGetCurrentMethodName(t *testing.T) {
 
 	var result string = GetCurrentMethodName()
 	assert.NotNil(result)
-	assert.Equal("_/app.TestGetCurrentMethodName", result)
+	assert.Equal("TestGetCurrentMethodName", result)
 }
 
 func TestGetCallingMethodName(t *testing.T) {
@@ -34,5 +34,5 @@ func TestGetCallingMethodName(t *testing.T) {
 
 	var result string = GetCallingMethodName()
 	assert.NotNil(result)
-	assert.Equal("testing.tRunner", result)
+	assert.Equal("tRunner", result)
 }
