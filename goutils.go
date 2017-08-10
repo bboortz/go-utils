@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"./logger"
+	"github.com/bboortz/go-utils/logger"
 )
 
 var log = logger.NewLogger().Build()

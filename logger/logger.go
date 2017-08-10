@@ -2,7 +2,7 @@ package logger
 
 import (
 	"fmt"
-	"github.com/bboortz/go-utils"
+	"github.com/bboortz/go-utils/stack"
 	"log"
 	"os"
 	"time"
@@ -103,7 +103,7 @@ type logger struct {
 
 func (l *logger) Log(level Level, args ...interface{}) {
 	currentStr := time.Now().Format(time.RFC3339)
-	callerStr := utils.GetCallingMethodName()
+	callerStr := stack.GetCallingMethodName()
 	levelStr := levelNames[l.level]
 	msg := fmt.Sprintln(args...)
 	logLine := fmt.Sprintf("%s %s > %-4s %s", currentStr, callerStr, levelStr, msg)
