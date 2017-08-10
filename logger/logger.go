@@ -43,15 +43,13 @@ var defaultFormat Format = `%{color}%{time:15:04:05.000} %{id:03x} ▶ %{level:.
  * Interface Definition
  */
 type Logger interface {
-	/*
-		Critical(args ...interface{})
-		Error(args ...interface{})
-		Warning(args ...interface{})
-		Notice(args ...interface{})
-		Info(args ...interface{})
-	*/
-	Log(level Level, args ...interface{})
+	Log(level Level, caller string, args ...interface{})
 	Fatal(args ...interface{})
+	Critical(args ...interface{})
+	Error(args ...interface{})
+	Warning(args ...interface{})
+	Notice(args ...interface{})
+	Info(args ...interface{})
 	Debug(args ...interface{})
 }
 
@@ -101,21 +99,46 @@ type logger struct {
 	format    Format
 }
 
-func (l *logger) Log(level Level, args ...interface{}) {
+func (l *logger) Log(level Level, caller string, args ...interface{}) {
 	currentStr := time.Now().Format(time.RFC3339)
-	callerStr := stack.GetCallingMethodName()
 	levelStr := levelNames[l.level]
 	msg := fmt.Sprintln(args...)
-	logLine := fmt.Sprintf("%s %s > %-4s %s", currentStr, callerStr, levelStr, msg)
-	fmt.Print(logLine)
+	logLine := fmt.Sprintf("%s %s > %-4s %s", currentStr, caller, levelStr, msg)
+	l.logStream.Printf(logLine)
 }
 
 func (l *logger) Fatal(args ...interface{}) {
-	l.Log(CRITICAL, args)
+	callerStr := stack.GetCallingMethodName()
+	l.Log(CRITICAL, callerStr, args)
+	os.Exit(1)
+}
+
+func (l *logger) Critical(args ...interface{}) {
+	callerStr := stack.GetCallingMethodName()
+	l.Log(CRITICAL, callerStr, args)
+}
+
+func (l *logger) Error(args ...interface{}) {
+	callerStr := stack.GetCallingMethodName()
+	l.Log(ERROR, callerStr, args)
+}
+
+func (l *logger) Warning(args ...interface{}) {
+	callerStr := stack.GetCallingMethodName()
+	l.Log(WARNING, callerStr, args)
+}
+
+func (l *logger) Notice(args ...interface{}) {
+	callerStr := stack.GetCallingMethodName()
+	l.Log(NOTICE, callerStr, args)
+}
+
+func (l *logger) Info(args ...interface{}) {
+	callerStr := stack.GetCallingMethodName()
+	l.Log(INFO, callerStr, args)
 }
 
 func (l *logger) Debug(args ...interface{}) {
-	l.Log(DEBUG, args)
-	//newArgs := fmt.Sprintf("%s%s%s", args...)
-	//l.log.Debug(newArgs)
+	callerStr := stack.GetCallingMethodName()
+	l.Log(DEBUG, callerStr, args)
 }

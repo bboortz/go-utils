@@ -11,6 +11,11 @@ func init() {
 
 func logIndirect2(args ...interface{}) {
 	log := NewLogger().Build()
+	log.Critial(args...)
+	log.Error(args...)
+	log.Warning(args...)
+	log.Notice(args...)
+	log.Info(args...)
 	log.Debug(args...)
 }
 func logIndirect(args ...interface{}) {
@@ -21,12 +26,13 @@ func TestDebug(t *testing.T) {
 	// assert := assert.New(t)
 
 	log := NewLogger().Build()
-	log.Debug("test info")
-	log.Debug("test info", "1")
-	log.Debug("test info", "1", 2)
-	log.Debug("test info", "1", 2, 3)
-	log.Debug("test info", "1", 2, 3, 4)
-	log.Debug("test info"+" foobar", "1", 2)
+	log.Debug("test")
+	log.Debug("test", "1")
+	log.Debug("test", "1", 2)
+	log.Debug("test", "1", 2, 3)
+	log.Debug("test", "1", 2, 3, 4)
+	log.Debug("test" + " foobar")
+	log.Debug("test"+" foobar", 1)
 }
 
 func TestLogIndirect(t *testing.T) {
