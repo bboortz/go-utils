@@ -52,6 +52,14 @@ func ExecCommandAllParams(command string, checkError bool) (int, string, string)
 	// retrieve exit code
 	waitStatus := cmd.ProcessState.Sys().(syscall.WaitStatus)
 	exitCode := waitStatus.ExitStatus()
+
+	// logging
+	if stdoutStr != "" {
+		log.Trace(stdoutStr)
+	}
+	if stdoutStr != "" {
+		log.Error(stderrStr)
+	}
 	log.Debug(fmt.Sprintf("EXIT CODE: %d", exitCode))
 
 	return exitCode, stdoutStr, stderrStr
