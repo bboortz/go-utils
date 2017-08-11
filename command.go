@@ -51,12 +51,19 @@ func ExecCommandAllParams(command string, checkError bool) (int, string, string)
 	exitCode := waitStatus.ExitStatus()
 
 	// logging
-	if stdoutStr != "" {
-		log.Trace(stdoutStr)
+	if exitCode == 0 {
+		if stdoutStr != "" {
+			log.Trace(stdoutStr)
+		}
+	} else {
+		if stdoutStr != "" {
+			log.Error(stdoutStr)
+		}
 	}
 	if stderrStr != "" {
 		log.Error(stderrStr)
 	}
+
 	log.Debug(fmt.Sprintf("EXIT CODE: %d", exitCode))
 	if checkError && (err != nil || exitCode != 0) {
 		log.Fatal(err)
