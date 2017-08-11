@@ -54,7 +54,7 @@ func ExecCommandAllParams(command string, checkError bool) (int, string, string)
 	if stdoutStr != "" {
 		log.Trace(stdoutStr)
 	}
-	if stdoutStr != "" {
+	if stderrStr != "" {
 		log.Error(stderrStr)
 	}
 	log.Debug(fmt.Sprintf("EXIT CODE: %d", exitCode))
