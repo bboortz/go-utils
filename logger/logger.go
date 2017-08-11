@@ -35,6 +35,8 @@ var levelNames = []string{
  * Interface Definition
  */
 type Logger interface {
+	SetLevel(Level)
+	GetLevel() Level
 	Log(level Level, caller string, args ...interface{})
 	Fatal(args ...interface{})
 	Critical(args ...interface{})
@@ -80,6 +82,14 @@ func (b *loggerBuilder) Build() Logger {
 type logger struct {
 	logStream *log.Logger
 	level     Level
+}
+
+func (l *logger) SetLevel(level Level) {
+	l.level = level
+}
+
+func (l *logger) GetLevel() Level {
+	return l.level
 }
 
 func (l *logger) Log(level Level, caller string, args ...interface{}) {
