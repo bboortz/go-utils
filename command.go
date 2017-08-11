@@ -57,10 +57,10 @@ func ExecCommandAllParams(command string, checkError bool) (int, string, string)
 	if stdoutStr != "" {
 		log.Error(stderrStr)
 	}
+	log.Debug(fmt.Sprintf("EXIT CODE: %d", exitCode))
 	if checkError && (err != nil || exitCode != 0) {
 		log.Fatal(err)
 	}
-	log.Debug(fmt.Sprintf("EXIT CODE: %d", exitCode))
 
 	return exitCode, stdoutStr, stderrStr
 }
