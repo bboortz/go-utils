@@ -2,6 +2,7 @@ package logger
 
 import (
 	"fmt"
+	"github.com/bboortz/go-utils/slices"
 	"github.com/bboortz/go-utils/stack"
 	"log"
 	"os"
@@ -36,6 +37,7 @@ var levelNames = []string{
  */
 type Logger interface {
 	SetLevel(Level)
+	SetLevelWithStr(string)
 	GetLevel() Level
 	Log(level Level, caller string, args ...interface{})
 	Fatal(args ...interface{})
@@ -68,6 +70,12 @@ func (b *loggerBuilder) SetLevel(level Level) LoggerBuilder {
 	return b
 }
 
+func (b *loggerBuilder) SetLevelWithStr(levelStr string) LoggerBuilder {
+	level := Level(slices.IndexOf(levelStr, levelNames))
+	b.SetLevel(level)
+	return b
+}
+
 func (b *loggerBuilder) Build() Logger {
 	return &logger{
 		logStream: log.New(os.Stdout, "", 0),
@@ -86,6 +94,11 @@ type logger struct {
 
 func (l *logger) SetLevel(level Level) {
 	l.level = level
+}
+
+func (l *logger) SetLevelWithStr(levelStr string) {
+	level := Level(slices.IndexOf(levelStr, levelNames))
+	l.SetLevel(level)
 }
 
 func (l *logger) GetLevel() Level {
