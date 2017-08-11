@@ -21,6 +21,7 @@ const (
 	NOTICE
 	INFO
 	DEBUG
+	TRACE
 )
 
 var levelNames = []string{
@@ -30,6 +31,7 @@ var levelNames = []string{
 	"NOTICE",
 	"INFO",
 	"DEBUG",
+	"TRACE",
 }
 
 /*
@@ -47,6 +49,7 @@ type Logger interface {
 	Notice(args ...interface{})
 	Info(args ...interface{})
 	Debug(args ...interface{})
+	Trace(args ...interface{})
 }
 
 type LoggerBuilder interface {
@@ -168,4 +171,12 @@ func (l *logger) Debug(args ...interface{}) {
 	}
 	callerStr := stack.GetCallingMethodName()
 	l.Log(DEBUG, callerStr, args)
+}
+
+func (l *logger) Trace(args ...interface{}) {
+	if l.level < TRACE {
+		return
+	}
+	callerStr := stack.GetCallingMethodName()
+	l.Log(TRACE, callerStr, args)
 }

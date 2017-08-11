@@ -17,6 +17,7 @@ func logIndirect2(args ...interface{}) {
 	log.Notice(args...)
 	log.Info(args...)
 	log.Debug(args...)
+	log.Trace(args...)
 }
 func logIndirect(args ...interface{}) {
 	logIndirect2(args...)
