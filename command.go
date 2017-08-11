@@ -41,9 +41,6 @@ func ExecCommandAllParams(command string, checkError bool) (int, string, string)
 	cmd.Stdout = &stdoutBuf
 	cmd.Stderr = &stderrBuf
 	err := cmd.Run()
-	if checkError && err != nil {
-		log.Fatal(err)
-	}
 
 	// convert buffer to string
 	stdoutStr := stdoutBuf.String()
@@ -59,6 +56,9 @@ func ExecCommandAllParams(command string, checkError bool) (int, string, string)
 	}
 	if stdoutStr != "" {
 		log.Error(stderrStr)
+	}
+	if checkError && (err != nil || exitCode != 0) {
+		log.Fatal(err)
 	}
 	log.Debug(fmt.Sprintf("EXIT CODE: %d", exitCode))
 
