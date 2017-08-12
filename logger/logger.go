@@ -9,9 +9,6 @@ import (
 	"time"
 )
 
-/*
- * Type Definitions
- */
 // Level is the type for log levels
 type Level int
 
@@ -38,9 +35,6 @@ var levelNames = []string{
 	"TRACE",
 }
 
-/*
- * Interface Definition
- */
 // Logger is the main interface for this logger
 type Logger interface {
 	SetLevel(Level)
@@ -55,9 +49,9 @@ type Logger interface {
 	Trace(args ...interface{})
 }
 
-// LoggerBuilder is the interface to build a new logger
-type LoggerBuilder interface {
-	SetLevel(Level) LoggerBuilder
+// Builder is the interface to build a new logger
+type Builder interface {
+	SetLevel(Level) Builder
 	Build() Logger
 }
 
@@ -65,20 +59,17 @@ type loggerBuilder struct {
 	level Level
 }
 
-/*
- * Builder Methods
- */
-// NewLogger is the create function for the LoggerBuilder
-func NewLogger() LoggerBuilder {
+// NewLogger is the create function for the Builder
+func NewLogger() Builder {
 	return &loggerBuilder{level: INFO}
 }
 
-func (b *loggerBuilder) SetLevel(level Level) LoggerBuilder {
+func (b *loggerBuilder) SetLevel(level Level) Builder {
 	b.level = level
 	return b
 }
 
-func (b *loggerBuilder) SetLevelWithStr(levelStr string) LoggerBuilder {
+func (b *loggerBuilder) SetLevelWithStr(levelStr string) Builder {
 	level := Level(slices.IndexOf(levelStr, levelNames))
 	b.SetLevel(level)
 	return b

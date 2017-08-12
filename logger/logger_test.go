@@ -13,8 +13,6 @@ func logIndirect2(args ...interface{}) {
 	log := NewLogger().Build()
 	log.Critical(args...)
 	log.Error(args...)
-	log.Warning(args...)
-	log.Notice(args...)
 	log.Info(args...)
 	log.Debug(args...)
 	log.Trace(args...)

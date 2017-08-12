@@ -10,7 +10,7 @@ func init() {
 }
 
 func TestIndexOfGood(t *testing.T) {
-	assert := assert.New(t)
+	a := assert.New(t)
 
 	var testdata = map[int]string{
 		0: "string1",
@@ -19,11 +19,11 @@ func TestIndexOfGood(t *testing.T) {
 	}
 
 	i := IndexOf("string1", testdata)
-	assert.Equal(0, i)
+	a.Equal(0, i)
 }
 
 func TestIndexOfBad(t *testing.T) {
-	assert := assert.New(t)
+	a := assert.New(t)
 
 	var testdata = map[int]string{
 		0: "string1",
@@ -32,14 +32,14 @@ func TestIndexOfBad(t *testing.T) {
 	}
 
 	i := IndexOf("string4", testdata)
-	assert.Equal(-1, i)
+	a.Equal(-1, i)
 }
 
 func TestIndexOfEmpty(t *testing.T) {
-	assert := assert.New(t)
+	a := assert.New(t)
 
 	var testdata = map[int]string{}
 
 	i := IndexOf("string1", testdata)
-	assert.Equal(-1, i)
+	a.Equal(-1, i)
 }
