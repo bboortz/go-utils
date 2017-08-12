@@ -1,8 +1,8 @@
 #!/bin/sh
 
-#set -o errexit
-#set -o nounset
-#set -o pipefail
+set -o errexit
+set -o nounset
+set -o pipefail
 
 GOBUILD=$( which go-build 2> /dev/null )
 if [ -z "$GOBUILD" ]; then
