@@ -24,23 +24,21 @@ func logIndirect(args ...interface{}) {
 }
 
 func TestSetLevel(t *testing.T) {
-	assert := assert.New(t)
+	a := assert.New(t)
 	log := NewLogger().Build()
 	log.SetLevel(DEBUG)
 	level := log.GetLevel()
-	assert.Equal(level, DEBUG)
+	a.Equal(level, DEBUG)
 }
 
 func TestGetLevel(t *testing.T) {
-	assert := assert.New(t)
+	a := assert.New(t)
 	log := NewLogger().Build()
 	level := log.GetLevel()
-	assert.Equal(level, INFO)
+	a.Equal(level, INFO)
 }
 
 func TestDebug(t *testing.T) {
-	// assert := assert.New(t)
-
 	log := NewLogger().Build()
 	log.Debug("test")
 	log.Debug("test", "1")
@@ -52,6 +50,5 @@ func TestDebug(t *testing.T) {
 }
 
 func TestLogIndirect(t *testing.T) {
-	// assert := assert.New(t)
 	logIndirect("test indirect")
 }

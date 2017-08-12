@@ -10,17 +10,21 @@ import (
 )
 
 /*
- * Log levels
+ * Type Definitions
  */
+// Level is the type for log levels
 type Level int
 
 const (
+	// CRITICAL is the log level for critical situations
 	CRITICAL Level = iota
+	// ERROR is the log level for errors
 	ERROR
-	WARNING
-	NOTICE
+	// INFO is the log level for information
 	INFO
+	// DEBUG is the log level for debug messages
 	DEBUG
+	// TRACE is the log level for traces
 	TRACE
 )
 
@@ -37,6 +41,7 @@ var levelNames = []string{
 /*
  * Interface Definition
  */
+// Logger is the main interface for this logger
 type Logger interface {
 	SetLevel(Level)
 	SetLevelWithStr(string)
@@ -45,13 +50,12 @@ type Logger interface {
 	Fatal(args ...interface{})
 	Critical(args ...interface{})
 	Error(args ...interface{})
-	Warning(args ...interface{})
-	Notice(args ...interface{})
 	Info(args ...interface{})
 	Debug(args ...interface{})
 	Trace(args ...interface{})
 }
 
+// LoggerBuilder is the interface to build a new logger
 type LoggerBuilder interface {
 	SetLevel(Level) LoggerBuilder
 	Build() Logger
@@ -64,6 +68,7 @@ type loggerBuilder struct {
 /*
  * Builder Methods
  */
+// NewLogger is the create function for the LoggerBuilder
 func NewLogger() LoggerBuilder {
 	return &loggerBuilder{level: INFO}
 }
@@ -139,22 +144,6 @@ func (l *logger) Error(args ...interface{}) {
 	}
 	callerStr := stack.GetCallingMethodName()
 	l.Log(ERROR, callerStr, args)
-}
-
-func (l *logger) Warning(args ...interface{}) {
-	if l.level < WARNING {
-		return
-	}
-	callerStr := stack.GetCallingMethodName()
-	l.Log(WARNING, callerStr, args)
-}
-
-func (l *logger) Notice(args ...interface{}) {
-	if l.level < NOTICE {
-		return
-	}
-	callerStr := stack.GetCallingMethodName()
-	l.Log(NOTICE, callerStr, args)
 }
 
 func (l *logger) Info(args ...interface{}) {
