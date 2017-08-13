@@ -1,4 +1,4 @@
-package maps
+package maputil
 
 import (
 	//	"github.com/davecgh/go-spew/spew"
