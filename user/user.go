@@ -6,7 +6,7 @@ import (
 
 // User is the structure of a user
 type User struct {
-	Uid       string
+	UID       string
 	Gid       string
 	Username  string
 	Groupname string
@@ -33,7 +33,7 @@ func GetCurrentUser() (User, error) {
 	}
 	homeDir := theUser.HomeDir
 	user = User{
-		Uid:       theUser.Uid,
+		UID:       theUser.Uid,
 		Gid:       theUser.Gid,
 		Username:  theUser.Username,
 		Groupname: theGroup.Name,
