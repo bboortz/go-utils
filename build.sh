@@ -11,5 +11,6 @@ if [ -z "$GOBUILD" ]; then
 fi
 
 
+${GOBUILD} build application
 ${GOBUILD} test
 go install

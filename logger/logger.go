@@ -28,8 +28,6 @@ const (
 var levelNames = []string{
 	"CRITICAL",
 	"ERROR",
-	"WARNING",
-	"NOTICE",
 	"INFO",
 	"DEBUG",
 	"TRACE",
