@@ -1,4 +1,4 @@
-package slices
+package sliceutil
 
 import (
 	//	"github.com/davecgh/go-spew/spew"
