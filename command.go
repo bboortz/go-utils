@@ -60,16 +60,16 @@ func ExecCommandAllParams(command string, checkError bool) (int, string, string)
 }
 
 // ExecCommandWithOutput executes a command via the os interface which let you define all possible parameter.
-func ExecCommandWithOutput(command string, checkError bool) (int, error) {
+func ExecCommandWithOutput(command string, withStdout bool, checkError bool) (int, error) {
 
 	// run command
 	log.Debug("CMD: " + command)
-	stderrDone := make(chan interface{})
 	cmd := exec.Command("/bin/sh", "-c", command)
 	stdout, _ := cmd.StdoutPipe()
 	stderr, _ := cmd.StderrPipe()
 	var err error
 	stdoutDone := make(chan interface{})
+	stderrDone := make(chan interface{})
 
 	// start process via command
 	if err = cmd.Start(); err != nil {
@@ -78,9 +78,11 @@ func ExecCommandWithOutput(command string, checkError bool) (int, error) {
 
 	// logging go routines
 	go func() {
-		scanner := bufio.NewScanner(stdout)
-		for scanner.Scan() {
-			log.Info(scanner.Text()) // Println will add back the final '\n'
+		if withStdout {
+			scanner := bufio.NewScanner(stdout)
+			for scanner.Scan() {
+				log.Info(scanner.Text()) // Println will add back the final '\n'
+			}
 		}
 		close(stdoutDone)
 	}()
