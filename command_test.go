@@ -39,7 +39,7 @@ func TestExecCommandEcho(t *testing.T) {
 func TestExecCommandWithOutput(t *testing.T) {
 	a := assert.New(t)
 
-	exitCode, err := ExecCommandWithOutput("/bin/echo test", true)
+	exitCode, err := ExecCommandWithOutput("/bin/echo test", true, true)
 	a.Equal(0, exitCode)
 	a.Nil(err)
 }
@@ -47,7 +47,7 @@ func TestExecCommandWithOutput(t *testing.T) {
 func TestExecCommandWithOutputBad(t *testing.T) {
 	a := assert.New(t)
 
-	exitCode, err := ExecCommandWithOutput("/bin/cat doesnotexist", false)
+	exitCode, err := ExecCommandWithOutput("/bin/cat doesnotexist", true, false)
 	a.Equal(1, exitCode)
 	a.NotNil(err)
 }
