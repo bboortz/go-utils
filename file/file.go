@@ -1,4 +1,4 @@
-package utils
+package file
 
 import (
 	"bufio"
@@ -24,4 +24,14 @@ func ReadLines(path string) ([]string, error) {
 		lines = append(lines, scanner.Text())
 	}
 	return lines, scanner.Err()
+}
+
+// IsFileExists checks if the file exists
+func IsFileExists(path string) bool {
+	if _, err := os.Stat(path); err != nil {
+		if os.IsNotExist(err) {
+			return false
+		}
+	}
+	return true
 }

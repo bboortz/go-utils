@@ -1,4 +1,4 @@
-package utils
+package file
 
 import (
 	//	"github.com/davecgh/go-spew/spew"
@@ -51,4 +51,13 @@ func TestReadLinesUnknownFile(t *testing.T) {
 	result, err := ReadLines(unknownFile)
 	a.NotNil(err)
 	a.Nil(result)
+}
+
+func TestIsFileExists(t *testing.T) {
+	a := assert.New(t)
+
+	a.True(IsFileExists("/"))
+	a.True(IsFileExists("/etc/hosts"))
+	a.True(IsFileExists("/dev/zero"))
+	a.False(IsFileExists("/tmp/DOESNOTEXISTS"))
 }
