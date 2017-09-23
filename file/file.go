@@ -2,8 +2,11 @@ package file
 
 import (
 	"bufio"
+	"github.com/bboortz/go-utils/logger"
 	"os"
 )
+
+var log = logger.NewLogger().Build()
 
 // ReadLines reads a whole file into memory and returns a slice of its lines.
 func ReadLines(path string) ([]string, error) {
@@ -12,8 +15,9 @@ func ReadLines(path string) ([]string, error) {
 		return nil, err
 	}
 	defer func() {
+		err = file.Close()
 		if err != nil {
-			err = file.Close()
+			log.Fatal(err)
 		}
 
 	}()
